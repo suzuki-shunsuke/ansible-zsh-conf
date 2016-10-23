@@ -1,0 +1,8 @@
+---
+- include: setup.yml
+- hosts: default
+  roles:
+  - suzuki-shunsuke.ghq-module
+  - role: ansible-zsh-conf
+    zsh_conf_ghq_executable: "{{ansible_env.HOME}}/.go/bin/ghq"
+    remote_repository_path: suzuki-shunsuke/zsh.conf

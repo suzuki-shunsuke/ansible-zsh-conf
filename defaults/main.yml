@@ -1,0 +1,3 @@
+---
+# defaults file for zsh-conf
+zsh_conf_ghq_executable: ghq

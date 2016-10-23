@@ -1,0 +1,4 @@
+*.retry
+.vagrant
+tests/_roles/*
+!.gitkeep

@@ -1,0 +1,22 @@
+---
+# tasks file for zsh-conf
+- name: ghq root
+  shell: "{{zsh_conf_ghq_executable}} root"
+  register: ghq_root
+  changed_when: false
+- name: Clone zsh config repository
+  ghq:
+    name: "{{remote_repository_path}}"
+    executable: "{{zsh_conf_ghq_executable}}"
+- name: Make symbolic links
+  file:
+    src: "{{ghq_root.stdout}}/github.com/{{remote_repository_path}}/{{item}}"
+    dest: "{{ansible_env.HOME}}/{{item}}"
+    state: link
+    force: yes
+  with_items:
+  - .zshrc
+  - .zshenv
+  - .zprofile
+  - .zlogin
+  - .zlogout
