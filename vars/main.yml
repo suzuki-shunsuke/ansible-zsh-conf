@@ -1,2 +1,3 @@
 ---
 # vars file for zsh-conf
+zsh_conf_datetime: "{{ansible_date_time.date}}-{{ansible_date_time.hour}}-{{ansible_date_time.minute}}-{{ansible_date_time.second}}"

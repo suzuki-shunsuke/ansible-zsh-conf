@@ -8,12 +8,7 @@
   ghq:
     name: "{{remote_repository_path}}"
     executable: "{{zsh_conf_ghq_executable}}"
-- name: Make symbolic links
-  file:
-    src: "{{ghq_root.stdout}}/github.com/{{remote_repository_path}}/{{item}}"
-    dest: "{{ansible_env.HOME}}/{{item}}"
-    state: link
-    force: yes
+- include: create_link.yml
   with_items:
   - .zshrc
   - .zshenv

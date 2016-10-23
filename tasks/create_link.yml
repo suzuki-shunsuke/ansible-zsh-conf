@@ -1,0 +1,14 @@
+---
+- name: Check existing file
+  stat:
+    path: "{{ansible_env.HOME}}/{{item}}"
+  register: st
+- name: Back up existing file
+  shell: "mv {{ansible_env.HOME}}/{{item}} {{ansible_env.HOME}}/{{item}}.{{zsh_conf_datetime}}"
+  when: st.stat.exists and not st.stat.islnk
+- name: Make symbolic links
+  file:
+    src: "{{ghq_root.stdout}}/github.com/{{remote_repository_path}}/{{item}}"
+    dest: "{{ansible_env.HOME}}/{{item}}"
+    state: link
+    force: yes
