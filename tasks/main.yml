@@ -1,13 +1,13 @@
 ---
 # tasks file for zsh-conf
 - name: ghq root
-  shell: "{{zsh_conf_ghq_executable}} root"
+  shell: "{{ghq_executable}} root"
   register: ghq_root
   changed_when: false
 - name: Clone zsh config repository
   ghq:
     name: "{{remote_repository_path}}"
-    executable: "{{zsh_conf_ghq_executable}}"
+    executable: "{{ghq_executable}}"
 - include: create_link.yml
   with_items:
   - .zshrc

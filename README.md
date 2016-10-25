@@ -24,7 +24,7 @@ The directory structure of the repository where your zsh config is hosted must b
 Role Variables
 --------------
 
-* zsh_conf_ghq_executable: The executable path of ghq command. The default is "ghq".
+* ghq_executable: The executable path of ghq command. The default is "ghq".
 * remote_repository_path: The remote repository where your zsh config is hosted.
 * zsh_conf_force: Create the link even if the dest file does not exist. The default is "no".
 
@@ -41,7 +41,7 @@ Example Playbook
   roles:
   - role: suzuki-shunsuke.zsh-conf
     remote_repository_path: suzuki-shunsuke/zsh.conf
-    zsh_conf_ghq_executable: "{{ansible_env.HOME}}/.go/bin/ghq"
+    ghq_executable: "{{ansible_env.HOME}}/.go/bin/ghq"
 ```
 
 License
