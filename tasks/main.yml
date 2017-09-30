@@ -1,17 +1,17 @@
 ---
 # tasks file for zsh-conf
-- name: ghq root
-  shell: "{{ghq_executable}} root"
-  register: ghq_root
-  changed_when: false
-- name: Clone zsh config repository
-  ghq:
-    name: "{{remote_repository_path}}"
-    executable: "{{ghq_executable}}"
-- include: create_link.yml
-  with_items:
-  - .zshrc
-  - .zshenv
-  - .zprofile
-  - .zlogin
-  - .zlogout
+- name: mkdir repo's parent directory
+  file:
+    path: "{{zsh_conf_cloned_dest|dirname}}"
+    state: directory
+- name: Clone the zsh_conf repository
+  git:
+    repo: "{{zsh_conf_repo}}"
+    dest: "{{zsh_conf_cloned_dest}}"
+    version: "{{zsh_conf_version}}"
+- name: Make symbolic link
+  file:
+    src: "{{zsh_conf_cloned_dest}}/{{item.key}}"
+    dest: "{{item.value}}"
+    state: link
+  with_dict: "{{zsh_conf_links}}"

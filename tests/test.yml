@@ -1,8 +1,10 @@
----
-- include: setup.yml
 - hosts: default
+  vars:
+    playbook_nonroot: "{{ (ansible_env.USER is undefined) | ternary(ansible_env.HOME != '/root', ansible_env.USER != 'root') }}"
   roles:
-  - suzuki-shunsuke.ghq-module
-  - role: ansible-zsh-conf
-    ghq_executable: "{{ansible_env.HOME}}/.go/bin/ghq"
-    remote_repository_path: suzuki-shunsuke/zsh.conf
+    - role: geerlingguy.git
+      become: "{{playbook_nonroot}}"
+    - role: ansible-zsh-conf
+      zsh_conf_repo: "https://github.com/suzuki-shunsuke/zsh.conf"
+      zsh_conf_cloned_dest: "{{ansible_env.HOME}}/repos/src/github.com/suzuki-shunsuke/zsh.conf"
+      zsh_conf_version: mac

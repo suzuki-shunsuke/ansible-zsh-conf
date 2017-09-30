@@ -1,4 +1,3 @@
----
 # defaults file for zsh-conf
-ghq_executable: ghq
-zsh_conf_force: no
+zsh_conf_version: HEAD
+zsh_conf_links: {}
