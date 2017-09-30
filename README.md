@@ -1,50 +1,41 @@
-zsh-conf
-=========
+# ansible-zsh-conf
 
 [![Build Status](https://travis-ci.org/suzuki-shunsuke/ansible-zsh-conf.svg?branch=master)](https://travis-ci.org/suzuki-shunsuke/ansible-zsh-conf)
 
-Install your zsh config hosted on the Github.
+ansible role to install zsh configurations
 
-Requirements
-------------
+## Requirements
 
-* [motemen/ghq](https://github.com/motemen/ghq)
+* git
 
-The directory structure of the repository where your zsh config is hosted must be in the following manner.
+## Role Variables
 
-```
-(repository root)/
-  .zshrc
-  .zshenv
-  .zprofile
-  .zlogin
-  .zlogout
-```
+name | required | default | description
+--- | --- | --- | ---
+zsh_conf_repo | yes | |
+zsh_conf_cloned_dest | yes | |
+zsh_conf_version | no | HEAD |
+zsh_conf_links | no | {} |
 
-Role Variables
---------------
+## Dependencies
 
-* ghq_executable: The executable path of ghq command. The default is "ghq".
-* remote_repository_path: The remote repository where your zsh config is hosted.
-* zsh_conf_force: Create the link even if the dest file does not exist. The default is "no".
+Nothing.
 
-Dependencies
-------------
-
-* [suzuki-shunsuke.ghq-module](https://galaxy.ansible.com/suzuki-shunsuke/ghq-module/)
-
-Example Playbook
-----------------
+## Example Playbook
 
 ```yaml
 - hosts: servers
   roles:
-  - role: suzuki-shunsuke.zsh-conf
-    remote_repository_path: suzuki-shunsuke/zsh.conf
-    ghq_executable: "{{ansible_env.HOME}}/.go/bin/ghq"
+    - role: suzuki-shunsuke.zsh-conf
+      zsh_conf_repo: "https://github.com/suzuki-shunsuke/zsh.conf"
+      zsh_conf_cloned_dest: "{{ansible_env.HOME}}/repos/src/github.com/suzuki-shunsuke/zsh.conf"
+      zsh_conf_version: mac
+      zsh_conf_links:
+        .zshrc: "{{ansible_env.HOME}}/.zshrc"
+        .zprofile: "{{ansible_env.HOME}}/.zprofile"
+        .zshenv: "{{ansible_env.HOME}}/.zshenv"
 ```
 
-License
--------
+## License
 
-MIT
+[MIT](LICENSE)
